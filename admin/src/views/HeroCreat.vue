@@ -143,7 +143,52 @@
                 >
               </el-form-item>
             </el-col>
-            <el-col :md="12"> </el-col>
+          </el-row>
+        </el-tab-pane>
+        <el-tab-pane label="皮肤" name="skins">
+          <el-button @click="model.skins.push({})">添加皮肤</el-button>
+          <el-row>
+            <el-col :md="12" v-for="(skin, i) in model.skins" :key="i">
+              <el-row>
+                <el-col :md="15">
+                  <el-form-item label="皮肤名" class="skinName">
+                    <el-input v-model="skin.name"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :md="4">
+                  <el-form-item label="图标" label-width="130px">
+                    <el-upload
+                      class="avatar-uploader"
+                      :action="$http.defaults.baseURL + '/upload'"
+                      :headers="getAuthHeaders()"
+                      :show-file-list="false"
+                      :on-success="(res) => $set(skin, 'icon', res.url)"
+                    >
+                      <img v-if="skin.icon" :src="skin.icon" class="avatar" />
+                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-form-item label="皮肤原图">
+                <el-upload
+                  class="skin-box"
+                  :action="$http.defaults.baseURL + '/upload'"
+                  :headers="getAuthHeaders()"
+                  :show-file-list="false"
+                  :on-success="(res) => $set(skin, 'pic', res.url)"
+                >
+                  <img v-if="skin.pic" :src="skin.pic" class="skin-box-img" />
+                  <i v-else class="el-icon-plus skin-box-icon"></i>
+                </el-upload>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="danger" @click="model.skins.splice(i, 1)"
+                  >删除</el-button
+                >
+              </el-form-item>
+            </el-col>
           </el-row>
         </el-tab-pane>
       </el-tabs>
@@ -177,6 +222,13 @@ export default {
           skills: 0,
           survive: 0,
         },
+        skins: [
+          {
+            icon: "",
+            pic: "",
+            name: "",
+          },
+        ],
         // 顺风
         items1: {
           sugges: [],
@@ -260,4 +312,33 @@ export default {
 </script>
 
 <style >
+.skin-box,
+.el-uploader {
+  border: 1px dashed #c2c2c2;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 30rem;
+  height: 15rem;
+}
+.skin-box,
+.el-uploader:hover {
+  border-color: #409eff;
+}
+.skin-box-img {
+  width: 30rem;
+  height: 15rem;
+  display: block;
+}
+.skin-box-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 30rem;
+  height: 15rem;
+  line-height: 5rem;
+  position: absolute;
+  top: 30%;
+  left: 0%;
+}
 </style>

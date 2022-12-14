@@ -37,7 +37,8 @@ module.exports = app => {
         if (req.Model.modelName === 'Category') {
             queryOptions.populate = 'parent'
         }
-        const items = await req.Model.find().setOptions(queryOptions).limit(10)
+
+        const items = await req.Model.find().setOptions(queryOptions).limit(100)
         res.send(items)
     })
     //获取分类详情的接口
@@ -59,6 +60,7 @@ module.exports = app => {
     // 在app上挂载一个中间件，通过req.params身上的resource，经inflection格式转化为数据模型的名称，最后挂载在req请求对象身上为Modle属性，用以指导数据指向所属的数据模型
     app.use('/admin/api/rest/:resource', auth, async (req, res, next) => {
         const modelName = require('inflection').classify(req.params.resource)
+
         req.Model = require(`../../models/${modelName}`)
         next()
     }, router)

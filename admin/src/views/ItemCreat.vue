@@ -22,6 +22,40 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
+      <el-form-item label="价格" prop="price">
+        <el-input v-model="model.price"></el-input>
+      </el-form-item>
+
+      <el-form-item label="属性">
+        <el-button icon="el-icon-plus" @click="model.properties.push({})"
+          >添加属性</el-button
+        >
+      </el-form-item>
+      <el-form-item v-for="(item, i) in model.properties" :key="i">
+        <el-input class="h-input" v-model="item.value"></el-input>
+        <el-button type="danger" @click="model.properties.splice(i, 1)"
+          >删除</el-button
+        >
+      </el-form-item>
+
+      <el-row>
+        <el-form-item label="效果">
+          <el-button icon="el-icon-plus" @click="model.effects.push({})"
+            >添加效果</el-button
+          >
+        </el-form-item>
+        <el-form-item v-for="(effect, j) in model.effects" :key="j">
+          <el-col :md="11">
+            <el-input type="textarea" v-model="effect.effect"></el-input>
+          </el-col>
+          <el-col>
+            <el-button type="danger" @click="model.effects.splice(j, 1)"
+              >删除</el-button
+            >
+          </el-col>
+        </el-form-item>
+      </el-row>
+
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
@@ -42,6 +76,18 @@ export default {
     return {
       model: {
         name: "",
+        iconL: "",
+        price: "",
+        properties: [
+          {
+            values: "",
+          },
+        ],
+        effects: [
+          {
+            effect: "",
+          },
+        ],
       },
     };
   },
@@ -76,18 +122,22 @@ export default {
       this.$set(this.model, "icon", res.url);
       console.log(res);
     },
+    // 添加文本框
+    addProp() {},
   },
   beforeRouteLeave(to, from, next) {
     if (to.path === "/items/create") {
       this.$refs.creatRef.resetFields();
-      console.log("@@@", to);
-      console.log("%%%", from);
+      // console.log("@@@", to);
+      // console.log("%%%", from);
     }
-
     next();
   },
 };
 </script>
 
 <style >
+.h-input {
+  width: 50%;
+}
 </style>

@@ -1,0 +1,262 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+
+}
+
+html {
+    font-size: 13px;
+
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.2em;
+    background-color: #f1f1f1;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: #999
+}
+
+p {
+    line-height: 1.5em;
+
+}
+
+// 阿里图标初始化
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 13px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+//colors
+$colors: (
+    "primary":#db9e3F,
+    "white":#fff,
+    "black":#000,
+    //当定义的属性名和css的颜色名称冲突时，用双引号括起来，表示为一个属性，而非一个颜色
+    "grey":#999,
+    "light":#f9f9f9,
+    "dark":#222,
+    "dark-1":#343440,
+    "grey-1":#666,
+    "light-1":#d4d9de,
+    "info":rgb(33, 214, 237),
+    "danger":rgb(185, 23, 23),
+
+);
+
+@each $colorKey,
+$color in $colors {
+    .text-#{$colorKey} {
+        color: $color
+    }
+
+    .bg-#{$colorKey} {
+        background-color: $color
+    }
+}
+
+
+
+
+
+//text align
+@each $var in (left, center, right) {
+    .text-#{$var} {
+        text-align: $var !important
+    }
+}
+
+
+//font size
+$base-font-size: 1rem;
+$font-sizes: (
+    xxs:.6154rem,
+    xs:.7692rem,
+    //10px
+    sm:.9231rem,
+    //12px
+    md:1rem,
+    //13px
+    lg:1.0769rem,
+    //14px
+    xl:1.2308rem,
+    //16px
+);
+
+@each $sizeKey,
+$size in $font-sizes {
+    .fs-#{$sizeKey} {
+        font-size: $size !important;
+    }
+}
+
+//text overflow
+.text-ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+
+//flex布局
+.d-flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-1 {
+    flex: 1
+}
+
+$flex-js: (
+    start:flex-start,
+    end:flex-end,
+    center:center,
+    between:space-between,
+    around:space-around
+);
+
+@each $key,
+$value in $flex-js {
+    .js-#{$key} {
+        justify-content: $value;
+
+    }
+
+}
+
+$flex-ai: (
+    start:flex-start,
+    end:flex-end,
+    center:center,
+    stretch:stretch
+);
+
+@each $key,
+$value in $flex-ai {
+    .ai-#{$key} {
+        align-items: $value;
+
+    }
+
+}
+
+//spacing 该项目常用边距
+$spacing-types: (
+    m:margin,
+    p:padding
+);
+$spacing-direction: (
+    t:top,
+    r:right,
+    l:left,
+    b:bottom
+);
+$spacing-base-size: 1rem;
+$spacing-size: (
+    0:0,
+    1:0.25,
+    2:0.5,
+    3:1,
+    4:1.5,
+    5:3
+);
+
+@each $typeKey,
+$type in $spacing-types {
+
+    //.m-1:{margin:0.25rem}
+    @each $sizeKey,
+    $size in $spacing-size {
+        .#{$typeKey}-#{$sizeKey} {
+            #{$type}: $size*$spacing-base-size;
+        }
+    }
+
+    @each $sizeKey,
+    $size in $spacing-size {
+        .#{$typeKey}x-#{$sizeKey} {
+            #{$type}-left: $size*$spacing-base-size;
+            #{$type}-right: $size*$spacing-base-size;
+        }
+
+        .#{$typeKey}y-#{$sizeKey} {
+            #{$type}-top: $size*$spacing-base-size;
+            #{$type}-bottom: $size*$spacing-base-size;
+        }
+    }
+
+    @each $directionKey,
+    $direction in $spacing-direction {
+
+        @each $sizeKey,
+        $size in $spacing-size {
+
+            //.mt-1{margin-top:0.25rem}
+            .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+                #{$type}-#{$direction}: $size*$spacing-base-size;
+            }
+        }
+    }
+}
+
+//button
+.btn {
+    border: none;
+    border-radius: .1538rem;
+    font-size: map-get($font-sizes , 'sm');
+    padding: 0.2rem 0.6rem;
+}
+
+//nav
+.nav {
+    .nav-item {
+        border-bottom: .2308rem solid transparent;
+        padding-bottom: 0.2rem;
+
+        &.active {
+            border-bottom: .2308rem solid #fff
+        }
+    }
+}
+
+//border
+.bdr {
+    border-radius: .4615rem;
+    border: none;
+}
+
+@each $dir in (top, left, right, bottom) {
+    .border-#{$dir} {
+        border-#{$dir}: 1px solid rgb(212, 197, 197)
+    }
+
+}
+
+//width,height
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
+}

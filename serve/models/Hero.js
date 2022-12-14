@@ -4,7 +4,7 @@ const schema = new mongoose.Schema({
     name: { type: String },
     avatar: { type: String },
     title: { type: String },
-    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'category' }],
+    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
     scores: {
         difficult: { type: Number },
         skills: { type: Number },
@@ -28,7 +28,12 @@ const schema = new mongoose.Schema({
     partners: [{
         hero: { type: mongoose.Schema.Types.ObjectId, ref: 'Hero' },
         description: { type: String }
+    }],
+    skins: [{
+        icon: { type: String },
+        pic: { type: String },
+        name: { type: String }
     }]
 })
 
-module.exports = mongoose.model('Hero', schema)
+module.exports = mongoose.model('Hero', schema)  //避免Hero集群名被默认为heros，故在此特别指定为heroes
